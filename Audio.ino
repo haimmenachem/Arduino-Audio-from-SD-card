@@ -18,7 +18,7 @@ String next_file = "5";
 int bpm = 1024;
 
 
-
+/*
 void flash() {
 
 	 if(Serial.available()){
@@ -33,7 +33,7 @@ void flash() {
 	 Serial.println(bpm);
 	 Serial.println(next_file);
 }
-
+*/
 
 void setup(){
 
@@ -52,7 +52,7 @@ void setup(){
   else{
     Serial.println("SD ok");
   }
-  tmrpcm.volume(1);
+ // tmrpcm.volume(1);
 
   //File root = SD.open("/AUDIO");
 
@@ -72,16 +72,26 @@ void setup(){
   }
 */
   Serial.println("PRIND DIR DONE");
-
+  tmrpcm.volume(0);
+  /*
   FlexiTimer2::set(500, flash); // 500ms period
     FlexiTimer2::start();
-
+*/
  // tmrpcm.play("music"); //the sound file "music" will play each time the arduino powers up, or is reset
 }
 
 
 
 void loop(){
+
+
+	 if(Serial.available()){
+		 next_file = Serial.readString();
+	 }
+
+	 bpm = analogRead(A0);
+	 Serial.println(bpm);
+	 Serial.println(next_file);
 
 
 	String str = "/AUDIO/FILE_";
