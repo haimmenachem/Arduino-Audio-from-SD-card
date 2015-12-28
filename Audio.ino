@@ -1,19 +1,19 @@
-#include <SD.h>                      // need to include the SD library
-#define DISABLE_SPEAKER2
-//#define SD_ChipSelectPin 53  		//example uses hardware SS pin 53 on Mega2560
-#define SD_ChipSelectPin 4 			//using digital pin 4 on arduino nano 328, can use other pins
-#include <TMRpcm.h>           		//  also need to include this library...
-#include <SPI.h>
-
 // fmpeg -i TechBassR120E-02.wav  -acodec pcm_u8 -ar 16000 -ac 1 b.wav
 // https://www.google.es/imgres?imgurl=http://www.getmicros.net/wp-content/uploads/2014/01/arduino-and-sdcard_bb.png&imgrefurl=http://www.getmicros.net/arduino-sd-card-example.php&h=903&w=1632&tbnid=nf3iwqTutBduxM:&docid=G_AhGVwTHTt6wM&ei=JC9_VtzMKsP4asuoi8gC&tbm=isch&ved=0ahUKEwjc7ubo4vrJAhVDvBoKHUvUAikQMwg0KAEwAQ
 
 
-TMRpcm tmrpcm;   // create an object for use in this sketch
+#include <SD.h>                      // need to include the SD library
+#define DISABLE_SPEAKER2
+#define SD_ChipSelectPin 4 			//using digital pin 4 on arduino nano 328, can use other pins
+#include <TMRpcm.h>           		//  also need to include this library...
+#include <SPI.h>
+
+
+TMRpcm tmrpcm;   					// create an object for use in this sketch
 
 unsigned long time = 0;
 
-String next_file = "5";
+
 int bpm = 1024;
 unsigned long c = 0;
 String filenumber;
@@ -50,9 +50,6 @@ void loop() {
 	String serialDataIn;
 	while (Serial.available()) {
 		int inbyte = Serial.read();
-		Serial.println(inbyte);
-		//	 next_file = Serial.readString();
-		//int command = next_file.charAt(0);
 		switch (inbyte) {
 
 		case 'p':
@@ -90,6 +87,7 @@ void loop() {
 				serialDataIn = String("");
 				counter = counter + 1;
 				num_steps  = counter;
+				c = 0;
 			}
 
 			break;
